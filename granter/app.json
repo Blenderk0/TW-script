@@ -48,6 +48,11 @@
       "typedRoutes": true,
       "reactCompiler": true
     },
-    "owner": "blenderk0s-team"
+    "owner": "blenderk0s-team",
+    "extra": {
+      "eas": {
+        "projectId": "e64844fc-32dc-420f-bced-f8e13ead8e59"
+      }
+    }
   }
 }
