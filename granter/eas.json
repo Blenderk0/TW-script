@@ -6,10 +6,19 @@
   "build": {
     "preview": {
       "distribution": "internal",
-      "ios": { "resourceClass": "m-medium" }
+      "ios": {
+        "resourceClass": "m-medium"
+      }
     },
     "production": {
       "autoIncrement": true
+    },
+    "unsigned": {
+      "withoutCredentials": true,
+      "distribution": "internal",
+      "ios": {
+        "config": "unsigned-ios.yml"
+      }
     }
   },
   "submit": {

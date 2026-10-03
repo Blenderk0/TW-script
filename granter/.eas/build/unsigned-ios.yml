@@ -1,0 +1,28 @@
+build:
+  name: Nepodpísaný iOS build (.ipa na sideload)
+  steps:
+    - eas/checkout
+    - eas/install_node_modules
+    - eas/prebuild
+    - run:
+        name: Inštalácia CocoaPods
+        working_directory: ios
+        command: pod install
+    - run:
+        name: Xcode build bez podpisu a zabalenie .ipa
+        command: |
+          set -eo pipefail
+          WS=$(ls -d ios/*.xcworkspace | head -1)
+          SCHEME=$(basename "$WS" .xcworkspace)
+          echo "Workspace: $WS, scheme: $SCHEME"
+          xcodebuild -workspace "$WS" -scheme "$SCHEME" -configuration Release \
+            -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build | tail -40
+          APP=$(find build/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" | head -1)
+          rm -rf Payload && mkdir Payload && cp -R "$APP" Payload/
+          zip -qry Granter-unsigned.ipa Payload
+          ls -la Granter-unsigned.ipa
+    - eas/upload_artifact:
+        name: Nahranie .ipa
+        inputs:
+          path: Granter-unsigned.ipa
