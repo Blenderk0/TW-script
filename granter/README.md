@@ -40,3 +40,17 @@ Vyžaduje Apple Developer účet (99 USD/rok). Bundle ID: `sk.napisemprojekt.gra
 - E-mailové notifikácie (vyžadujú server)
 - Reálna kurátorovaná databáza výziev z napisemprojekt.sk
 - Export do Wordu/Excelu
+
+## Inštalácia do iPhonu bez App Store (interná distribúcia)
+
+Vyžaduje Apple Developer účet a bezplatný Expo účet. Mac netreba.
+
+```bash
+cd granter
+npx eas-cli@latest login
+npx eas-cli@latest device:create      # vygeneruje odkaz – otvorte ho v iPhone a nainštalujte profil
+npx eas-cli@latest build --platform ios --profile preview
+```
+
+Po dokončení buildu (cca 15 min) dostanete odkaz a QR kód. Otvoríte ho v Safari na iPhone a aplikácia sa nainštaluje.
+Na iPhone treba zapnúť **Nastavenia → Súkromie a bezpečnosť → Režim vývojára**.
