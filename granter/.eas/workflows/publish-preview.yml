@@ -1,0 +1,10 @@
+name: Publikovať náhľad pre Expo Go
+
+jobs:
+  publish:
+    name: EAS Update (preview)
+    type: update
+    params:
+      branch: preview
+      platform: ios
+      message: Grantér – náhľad na skúšku
