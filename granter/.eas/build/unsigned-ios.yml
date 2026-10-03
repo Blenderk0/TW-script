@@ -21,8 +21,9 @@ build:
           APP=$(find build/Build/Products/Release-iphoneos -maxdepth 1 -name "*.app" | head -1)
           rm -rf Payload && mkdir Payload && cp -R "$APP" Payload/
           zip -qry Granter-unsigned.ipa Payload
-          ls -la Granter-unsigned.ipa
+          cp Granter-unsigned.ipa "$HOME/Granter-unsigned.ipa"
+          ls -la "$HOME/Granter-unsigned.ipa"
     - eas/upload_artifact:
         name: Nahranie .ipa
         inputs:
-          path: Granter-unsigned.ipa
+          path: ${ eas.env.HOME }/Granter-unsigned.ipa
