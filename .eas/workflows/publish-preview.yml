@@ -3,8 +3,13 @@ name: Publikovať náhľad pre Expo Go
 jobs:
   publish:
     name: EAS Update (preview)
-    type: update
-    params:
-      branch: preview
-      platform: ios
-      message: Grantér – náhľad na skúšku
+    runs_on: linux-medium
+    image: latest
+    steps:
+      - uses: eas/checkout
+      - name: Inštalácia a publikovanie
+        working_directory: ./granter
+        run: |
+          node -v
+          npm ci
+          npx eas-cli@latest update --branch preview --platform ios --message "Grantér – náhľad na skúšku" --non-interactive
